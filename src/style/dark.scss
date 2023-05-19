@@ -1,0 +1,106 @@
+.app.dark {
+    background-color: #222;
+    color: whitesmoke;
+    .featured {
+        .title {
+            color: whitesmoke;
+        }
+
+        .desc {
+            color: whitesmoke;
+        }
+        .summary {
+        .itemTitle {
+            color: whitesmoke;
+        }}
+    }
+
+    .chart {
+        background-color: #c5baba;
+        .title {
+            color: #004370;
+        }
+    }
+
+    .chartGrid {
+        stroke: whitesmoke;
+    }
+
+    .table {
+        background-color: #3f3d3dfa;
+
+        .tableCell {
+            color: white;
+        }
+    }
+
+    .navbar {
+
+    border-color: #333;
+
+   
+    }
+
+    .sidebar {
+        background-color: #222;
+        border-color: #333;
+        color: #c5baba;
+
+      .center {
+        .title { 
+        
+            color: white;
+        }
+       
+      }
+
+        hr {
+            border-color: #333;
+        }
+
+        ul {
+            li {
+                span {
+                    color: rgba(219, 213, 213, 0.973);
+                }
+            &:hover {
+                background-color: #c5baba;
+            }
+            .icon {
+                color: #c5baba;
+
+              
+            }
+        }
+    }
+
+   }
+   .userList  {
+    .datatableTitle {        
+        color:whitesmoke;
+    }
+    .datagrid {
+        color: white;
+
+        .cellWithStatus {
+            &.active {
+                color: white;
+                font-weight: bold;
+                background-color: rgb(4, 56, 4);
+            }
+            &.inactive {
+                color: white;
+                font-weight: bold;
+                background-color:rgba(218, 165, 32, 0.178) ;
+        }
+        }
+    }
+
+
+}
+
+input {
+    background-color: transparent;
+}
+
+}

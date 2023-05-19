@@ -1,0 +1,49 @@
+.tableContainer {
+    height: 500px;
+    /* Adjust the height to your desired value */
+    overflow-y: auto;
+}
+
+.table {
+    .cellWrapper {
+        display: flex;
+        align-items: center;
+
+
+        .image {
+            text-align: left;
+            width: 32px;
+            height: 32px;
+            background-repeat: 50%;
+            margin-right: 10px;
+            margin-bottom: 0px;
+            padding-left: 0px;
+            padding-right: 10px;
+            object-fit: cover;
+            -webkit-transition: 0.6s ease;
+            transition: 0.6s ease;
+
+            &:hover {
+                -webkit-transform: scale(1.4);
+                transform: scale(9.2);
+            }
+
+        }
+    }
+
+    .tableCell {
+        font-size: 14px;
+
+        &#head {
+            color: #f1f2f2;
+            background-color: #004370;
+            text-align: center;
+
+            &:first-child {
+                width: 40px;
+            }
+        }
+
+
+    }
+}

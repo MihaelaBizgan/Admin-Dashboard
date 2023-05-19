@@ -1,0 +1,111 @@
+.sidebar {
+  flex:1;
+  border: 0.5px solid rgb(230, 227, 227);
+  min-height: 100vh;
+  background-color: white;
+  
+  .top {
+    height:50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #004370;
+    .logo {
+        position: relative;
+        font-size: 16px;
+        font-weight: bold;
+        color: #f1f2f2;
+        justify-content: center;
+        padding-top: 20px;
+        padding-left: 50px;
+        margin-bottom: 20px;
+        left: 0;
+        max-width: 270px;
+             
+        .docsIcon {
+          display: inline-block;
+          position: absolute;
+          margin-top: 20px;
+          margin-bottom: 20px;
+          margin-left: 0px;
+          top:0;
+          left:0;
+          width: 25px;
+          height: 25px;
+          background-repeat: no-repeat;
+          background-size: contain;
+        
+          // justify-content: center;
+          // align-items: center;
+          // padding-right: 10px;          
+               
+        }
+
+    }
+    
+  };
+  hr {
+    height: 0;
+    border: 0.5px solid lightgray;
+  }
+  .center {
+    padding-left: 10px;
+    padding-top: 10px;
+    ul{
+      list-style: none;  
+      margin: 0;
+      padding: 0;
+
+      .title {
+        font-size: 14px;
+        font-weight: bold;
+        color:#a0a0a0;
+        margin-top: 20px;
+        margin-bottom: 5px;
+      }
+      li {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        cursor: pointer;
+        &:hover{
+          background-color: #dcdcdc;
+        }
+        .icon {
+          font-size: 18px;
+          color: #69a1f5;
+        }
+        span {
+          font-size: 14px;
+          font-weight: bold;
+          color: #09243f;
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+    .bottom {
+      display: flex;
+      align-items: center;
+      margin: 10px;
+      .colorOption{
+        width: 20px;
+        height: 20px;
+        background-repeat: 5px;
+        border: 1px solid #004370;
+        cursor: pointer;
+        margin: 5px;
+        border-radius: 30%;
+  
+        &:nth-child(1){
+          background-color:#004370 ;
+        }
+      
+        &:nth-child(2){
+          background-color: #dcdcdc;
+        }
+      }
+    }
+   
+  
+}

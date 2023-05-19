@@ -1,0 +1,27 @@
+.footer-style {
+    height: 40px; 
+    display: flex;
+    justify-content:last baseline;
+    align-items: center;
+    padding-right:20px;
+    padding-top: auto;
+    padding-bottom: auto;
+    margin-bottom: 1px;
+    margin-top: 10px;
+    margin-right: 10px;
+    //background-color: #f1f2f2;
+    position: relative;
+    
+
+}
+
+img {
+    margin: 15px;
+    width: 72px;
+    height: 30px;
+    display: flex;
+    vertical-align: middle;
+    max-width: 100%;
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}
