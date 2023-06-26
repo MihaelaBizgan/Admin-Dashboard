@@ -69,7 +69,10 @@ function Datatable() {
         return (
           <div>
             {/* <button className="userListView">View</button> */}
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
+            <Link
+              to={`/users/${params.row.id}`}
+              style={{ textDecoration: "none" }}
+            >
               <VisibilityIcon className="userListView" />
             </Link>
             <DeleteOutlineIcon

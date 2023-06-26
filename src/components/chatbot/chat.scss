@@ -1,0 +1,47 @@
+.chatbot-container {
+    // Styles for the container element of the ChatBot component
+    // You can customize the width, height, background color, etc.
+
+    width: 1800px;
+    height: 1800px;
+    //background-color: #e9ecf2;
+    border-radius: 10px;
+
+    .dxvDzU {
+        align-items: center;
+        background: #6e48aa;
+        color: #fff;
+        display: flex;
+        fill: #fff;
+        height: 56px;
+        justify-content: space-between;
+        padding: 0 10px;
+    }
+
+    .chat-message {
+        width: 1800px;
+        height: 1800px;
+        // Styles for the chat messages
+        // You can customize the font size, color, padding, etc.
+        font-size: 16px;
+        color: #004370;
+        padding: 10px;
+
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .user-message {
+        // Styles for the user messages
+        // You can customize the font size, color, padding, etc.
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .bot-message {
+        // Styles for the bot messages
+        // You can customize the font size, color, padding, etc.
+        font-style: italic;
+        color: #004370;
+    }
+}

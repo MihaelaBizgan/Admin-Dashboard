@@ -16,7 +16,7 @@ const List = () => {
         <br />
         <br />
         <br />
-        <Footer />
+        <Footer className="footer" />
       </div>
     </div>
   );

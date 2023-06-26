@@ -40,15 +40,17 @@
                 }
             }
         }
+
+
+        footer {
+            position: absolute;
+            bottom: 5px;
+
+
+        }
     }
 
-    .footer {
-        position: relative;
-        bottom: 0;
-        left: -250;
-        width: calc(100% - 220px);
 
-    }
 
     @media (max-width: 768px) {
         .footer {

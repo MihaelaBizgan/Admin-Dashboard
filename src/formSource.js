@@ -99,4 +99,10 @@ export const productInputs = [
   //     product: "DA 10K/17K tunnel inlet",
   //     img: "https://www.skov.com/media/fzfijgny/air-inlet-da-17k-tunnel-inlet-3d-product-drawing.png?width=800&format=webp",
   //   },
+
+  {
+    id: 7,
+    label: "Image",
+    type: "file",
+  },
 ];

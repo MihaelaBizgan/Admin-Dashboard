@@ -15,10 +15,17 @@ import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+
+//import styled from "styled-components";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+
+  const toggleChatbot = () => {
+    setIsChatbotOpen((prevState) => !prevState);
+  };
 
   return (
     <div className="sidebar">
@@ -74,10 +81,13 @@ const Sidebar = () => {
             <AutoGraphOutlinedIcon className="icon" />
             <span className="">Analytics</span>
           </li>
-          <li>
-            <LiveHelpOutlinedIcon className="icon" />
-            <span className="">Chatbot Q&A</span>
-          </li>
+          <Link to="/chatBot" style={{ textDecoration: "none" }}>
+            {/* <li onClick={toggleChatbot}> */}
+            <li>
+              <LiveHelpOutlinedIcon className="icon" />
+              <span className="">Chatbot Q&A</span>
+            </li>
+          </Link>
           <p className="title">ACCOUNT</p>
           <li>
             <SendOutlinedIcon className="icon" />

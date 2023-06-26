@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./table.scss";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -7,60 +7,152 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { firestore } from "../../firebase";
+import { firedb } from "../../firebase";
+import { productColumns } from "../../data";
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  deleteDoc,
+  onSnapshot,
+  collection,
+} from "firebase/firestore";
+import { Link } from "react-router-dom";
+import EditIcon from "@mui/icons-material/Edit";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 const Table1 = () => {
-  const rows = [
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    //   const fetchData = async () => {
+    //     try {
+    //       const querySnapshot = await firestore.collection("products").get();
+    //       const fetchedData = querySnapshot.docs.map((doc) => doc.data());
+    //       setData((rows) => [...rows, ...fetchedData]); // Merge fetched data with initial rows
+    //     } catch (error) {
+    //       console.error("Error fetching data:", error);
+    //     }
+    //   };
+
+    //   fetchData();
+    // }, []);
+    const unsub = onSnapshot(
+      collection(firestore, "products"),
+      (snapShot) => {
+        let list = [];
+        snapShot.docs.forEach((doc) => {
+          list.push({ id: doc.id, ...doc.data() });
+        });
+        setData(list);
+        console.log(list);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+    return () => {
+      unsub();
+    };
+  }, []);
+
+  const handleEdit = async (id) => {
+    try {
+      const productRef = doc(firestore, "products", id);
+      const productDoc = await getDoc(productRef);
+
+      if (productDoc.exists()) {
+        const updatedData = {
+          price: productDoc.data().price + 100,
+          // Add more fields to update as needed
+        };
+
+        await updateDoc(productRef, updatedData);
+        console.log(
+          `Product with ID ${productColumns.id} successfully updated.`
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleViewClick = (id) => {
+    // Navigate to view product page
+    // You can replace this with your own navigation logic
+    console.log(`View Product: /products/${id}`);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      if (window.confirm("Are you sure you want to delete this product?")) {
+        await deleteDoc(doc(firestore, "products", id));
+        setData((data) => data.filter((item) => item.id !== id));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const actionColumn = [
     {
-      sapId: 1,
-      product: "DA 1200 wall inlet",
-      img: "https://www.skov.com/media/orfnz0vy/air-inlet-da-1200-wall-inlet-3d-product-drawing.png?width=800&format=webp",
-      productGroup: "Air Inlets",
-      productSubgroup: "Wall inlets",
-      price: 3435,
-      description:
-        "DA 1200 bricked-in wall inlets are suitable for concrete and brick houses and available for various wall thicknesses. The inlets require no additional support in connection with bricking in or fixing inlets in walls.",
-    },
-    {
-      sapId: 2,
-      product: "DA 3800 wall inlet",
-      img: "https://www.skov.com/media/ovhjrdmt/air-inlet-da-3800-3d-product-drawing.png?width=800&format=webp",
-      productGroup: "Air Inlets",
-      productSubgroup: "Wall inlets",
-      price: 7815,
-      description:
-        "DA 3800 is a high-capacity wall inlet that combines correct minimum ventilation during cold periods with high performance and a good chill effect during hot periods.  The DA 3800, with Advanced Flow Control (optional without), maintains excellent pressure stability at all ventilation ranges.",
-    },
-    {
-      sapId: 3,
-      product: "DOL 532 climate controller",
-      img: "https://www.skov.com/media/hs1bvr25/poultry-dol-539-controller-3d-product-drawing.png?width=800&format=webp",
-      productGroup: "Climate and production controler",
-      productSubgroup: "Controller",
-      price: 7685,
-      description:
-        "DOL 532 T is a climate controller specially developed for simple tunnel houses. Its functionality is reduced compared to the other DOL 53X variants, in that the focus is on the functions used in tropical and subtropical areas. Several factors make DOL 532 T especially suited for use under these climate conditions.",
-    },
-    {
-      sapId: 4,
-      product: "Combi-Tunnel",
-      img: "https://www.skov.com/media/mf2d2xs1/combitunnel-w-chimney-17k_summer.png?width=800&format=webp",
-      productGroup: "Climate and production controler",
-      productSubgroup: "Controller",
-      price: 5785,
-      description:
-        "Combi-Tunnel is a fully automatic all-weather system that provides the poultry the best possible productivity conditions when the outside temperature changes from very cold to very hot.",
-    },
-    {
-      sapId: 5,
-      product: "DA 10K/17K tunnel inlet",
-      img: "https://www.skov.com/media/fzfijgny/air-inlet-da-17k-tunnel-inlet-3d-product-drawing.png?width=800&format=webp",
-      productGroup: "Air inlets",
-      productSubgroup: "Tunnel opening",
-      price: 3785,
-      description:
-        "DA 17K The tunnel inlet is used as an air inlet in houses with Tunnel ventilation or Combi-Tunnel ventilation. It can be mounted directly in interior walls or sandwich panels and is available both with high-insulated inlet flaps made from PVC (polyvinyl chloride) with insulation and with semiinsulated inlet flaps made from PVC (polyvinyl chloride).",
+      field: "action",
+      headerName: "Edit product",
+      width: 280,
+      renderCell: (params) => {
+        return (
+          <div>
+            {/* <button className="userListView">View</button> */}
+            <Link
+              to={`/products/${params.id}`}
+              style={{ textDecoration: "none" }}
+            >
+              <VisibilityIcon
+                className="viewIcon"
+                onClick={() => handleViewClick(params.id)}
+              />
+            </Link>
+            <Link
+              to={`/products/${params.id}`}
+              style={{ textDecoration: "none" }}
+            >
+              <EditIcon
+                className="editIcon"
+                onClick={() => handleEdit(params.id)}
+              />
+            </Link>
+          </div>
+        );
+      },
     },
   ];
+
+  // const actionColumns = [
+  //   {
+  //     field: "view",
+  //     headerName: "View",
+  //     width: 120,
+  //     renderCell: (params) => (
+  //       <Link to={`/products/${params.id}`}>
+  //         <VisibilityIcon className="viewIcon" onClick={handleViewClick} />
+  //       </Link>
+  //     ),
+  //   },
+  //   {
+  //     field: "edit",
+  //     headerName: "Edit",
+  //     width: 120,
+  //     renderCell: (params) => {
+  //       return (
+  //         <Link to={`/products/edit/${params.data.id}`}>
+  //           <EditIcon className="editIcon" onClick={handleEdit} />
+  //         </Link>
+  //       );
+  //     },
+  //   },
+  // ];
+
   return (
     <div className="tableContainer">
       <TableContainer component={Paper} className="table">
@@ -85,34 +177,75 @@ const Table1 = () => {
               <TableCell className="tableCell" id="head">
                 Product details
               </TableCell>
+              <TableCell className="tableCell" id="head">
+                Edit/View
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.sapId}>
+            {productColumns.map((row) => (
+              <TableRow key={row.id}>
                 <TableCell className="tableCell" width={"10px"} align="center">
-                  {row.sapId}
+                  {row.id}
                 </TableCell>
-                <TableCell className="tableCell" align="center" width={"150px"}>
+                <TableCell className="tableCell" align="center" width={"180px"}>
                   <div className="cellWrapper">
                     <img src={row.img} alt="" className="image" />
                     {row.product}
                   </div>
                 </TableCell>
-                <TableCell className="tableCell" align="center" width={"100px"}>
+                <TableCell className="tableCell" align="center" width={"120px"}>
                   {row.productGroup}
                 </TableCell>
-                <TableCell className="tableCell" align="center" width={"90px"}>
+                <TableCell className="tableCell" align="center" width={"120px"}>
                   {row.productSubgroup}
                 </TableCell>
                 <TableCell className="tableCell" align="center" width={"80px"}>
                   <span className={`status ${row.price}`}>{row.price}</span>
                 </TableCell>
-                <TableCell className="tableCell" align="center" width={"340px"}>
+                <TableCell className="tableCell" align="center" width={"540px"}>
                   <span className={`status ${row.description}`}>
                     {row.description}
                   </span>
                 </TableCell>
+                <TableCell className="tableCell" align="center" width={"100px"}>
+                  {actionColumn.map((column) =>
+                    column.renderCell({ data: row })
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+            {data.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell className="tableCell" width={"10px"} align="center">
+                  {row.id}
+                </TableCell>
+                <TableCell className="tableCell" align="center" width={"180px"}>
+                  <div className="cellWrapper">
+                    <img src={row.img} alt="" className="image" />
+                    {row.product}
+                  </div>
+                </TableCell>
+                <TableCell className="tableCell" align="center" width={"120px"}>
+                  {row.productGroup}
+                </TableCell>
+                <TableCell className="tableCell" align="center" width={"120px"}>
+                  {row.productSubgroup}
+                </TableCell>
+                <TableCell className="tableCell" align="center" width={"80px"}>
+                  <span className={`status ${row.price}`}>{row.price}</span>
+                </TableCell>
+                <TableCell className="tableCell" align="center" width={"540px"}>
+                  <span className={`status ${row.description}`}>
+                    {row.description}
+                  </span>
+                </TableCell>
+                <TableCell className="tableCell" align="center" width={"100px"}>
+                  {actionColumn.map((column) =>
+                    column.renderCell({ id: row.id, ...row })
+                  )}
+                </TableCell>
+                {/* Render other table cells for fetched data */}
               </TableRow>
             ))}
           </TableBody>

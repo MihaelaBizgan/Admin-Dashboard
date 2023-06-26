@@ -21,6 +21,7 @@ const New = ({ inputs, title }) => {
   const [uploadStatus, setUploadStatus] = useState("");
   const [errors, setErrors] = useState({});
   const [attention, setAttention] = useState({});
+  const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
     const uploadFile = () => {
@@ -57,7 +58,7 @@ const New = ({ inputs, title }) => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setData((prev) => ({ ...prev, img: downloadURL }));
             setUploadStatus("Product added successfully!");
-            toast.success("Item added successfully!");
+            //toast.success("Item added successfully!");
           });
         }
       );
@@ -147,7 +148,7 @@ const New = ({ inputs, title }) => {
       [id]: attentionMessage ? attentionMessage : undefined,
     }));
 
-    setData({ ...data, [id]: value });
+    setData((prevData) => ({ ...prevData, [id]: value }));
   }, 1000);
   console.log(data);
 

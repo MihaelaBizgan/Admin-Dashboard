@@ -47,3 +47,23 @@
 
     }
 }
+
+.editIcon {
+    border-radius: 10px;
+    padding: 5px 10px;
+    background-color: #dcdcdc;
+    color: #004370;
+    cursor: pointer;
+    margin-right: 10px;
+    border: 1px solid;
+}
+
+.viewIcon {
+    border-radius: 10px;
+    padding: 5px 10px;
+    background-color: #004370;
+    color: white;
+    cursor: pointer;
+    margin-right: 10px;
+    border: 1px solid;
+}

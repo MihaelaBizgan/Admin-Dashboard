@@ -2,6 +2,8 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
 import Single from "./pages/single/Single";
+import ViewProduct from "./pages/viewProduct/ViewProduct";
+
 import New from "./pages/new/New";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { productInputs, userInputs } from "./formSource";
@@ -13,8 +15,12 @@ import Register from "./pages/register/Register";
 import { AuthContext } from "./context/AuthContext";
 // import handleSubmit from "./handles/handlesubmit";
 // import { useRef } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import React from "react";
+import config from "./components/chatbot/config.jsx";
+import MessageParser from "./components/chatbot/MessageParser";
+import Chatbot from "react-chatbot-kit";
 
 function App() {
   // const dataRef = useRef();
@@ -88,11 +94,12 @@ function App() {
                 </RequireAuth>
               }
             />
+
             <Route
-              path=":productId"
+              path="/products/:productId"
               element={
                 <RequireAuth>
-                  <Single />
+                  <ViewProduct />
                 </RequireAuth>
               }
             />
@@ -104,6 +111,9 @@ function App() {
                 </RequireAuth>
               }
             />
+          </Route>
+          <Route>
+            <Route path="chatBot" element={<MessageParser />}></Route>
           </Route>
         </Routes>
         <ToastContainer />

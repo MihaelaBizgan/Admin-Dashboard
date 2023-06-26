@@ -28,7 +28,13 @@ const Home = () => {
           <div className="listTitle">Products database</div>
           <Table />
         </div>
-        <Footer />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <Footer className="footer" />
       </div>
     </div>
   );
